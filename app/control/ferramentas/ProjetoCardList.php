@@ -23,7 +23,7 @@ class ProjetoCardList extends TPage
         try
         {
             TTransaction::open('erphouse');
-            $projetos_usuario = ProjetoUsuario::where('system_user_id','=',TSession::getValue('userid'))->getIndexedArray('projeto_id');
+            $projetos_usuario = ProjetoUsuario::where('system_user_id','=',TSession::getValue('userid'))->getIndexedArray('project_id');
             $projetos = Projeto::where('id', 'IN', $projetos_usuario)->load();
             TTransaction::close();
         }
@@ -51,7 +51,7 @@ class ProjetoCardList extends TPage
      */
     public static function onSelect($param = NULL)
     {
-        TSession::setValue('projeto_id', $param['id']);
+        TSession::setValue('project_id', $param['id']);
         TScript::create('$("body").addClass("ls-closed");');
         AdiantiCoreApplication::loadPage('KanbanView', 'onLoad');
     }
